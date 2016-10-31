@@ -1,0 +1,10 @@
+applications:
+- path: .
+  memory: 256M
+  instances: 1
+  command: node server.js
+  buildpack: https://github.com/cloudfoundry/nodejs-buildpack
+  domain: mybluemix.net
+  name: mynodeapp07
+  host: mynodeapp07
+  disk_quota: 512M
