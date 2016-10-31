@@ -1,14 +1,25 @@
 var express = require('express');
+var nunjucks = require('nunjucks')
 var app = express();
 var bodyParser = require('body-parser');
 
 // Create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
+nunjucks.configure('public', {
+    autoescape: true,
+    express: app
+});
+
 app.use(express.static('public'));
 app.get('/', function (req, res) {
-   res.sendFile( __dirname + "/" + "index.htm" );
+   res.sendFile( __dirname + "/" + "home.html" );
 })
+
+app.get('/name', function (req, res) {
+   res.sendFile( __dirname + "/" + "name.html" );
+})
+
 
 app.post('/process_post', urlencodedParser, function (req, res) {
    // Prepare output in JSON format
@@ -17,7 +28,9 @@ app.post('/process_post', urlencodedParser, function (req, res) {
       last_name:req.body.last_name
    };
    console.log(response);
-   res.end("Hello " + req.body.first_name + " " + req.body.last_name);
+   
+   var name= req.body.first_name + " " + req.body.last_name;
+   res.render('hello.html', { name : name });
 })
 
 var port = (process.env.VCAP_APP_PORT || 3000);
