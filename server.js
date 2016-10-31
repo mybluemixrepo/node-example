@@ -13,11 +13,11 @@ nunjucks.configure('public', {
 
 app.use(express.static('public'));
 app.get('/', function (req, res) {
-   res.sendFile( __dirname + "/" + "home.html" );
+   res.sendFile( __dirname + "/public/" + "home.html" );
 })
 
 app.get('/name', function (req, res) {
-   res.sendFile( __dirname + "/" + "name.html" );
+   res.sendFile( __dirname + "/public/" + "name.html" );
 })
 
 
